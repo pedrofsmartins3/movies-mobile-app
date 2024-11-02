@@ -5,7 +5,11 @@ import Feather from "@expo/vector-icons/Feather";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { commonStyles } from "@/styles/styles";
 
-function Navbar() {
+type Props = {
+  userScrollActive: number;
+};
+
+function Navbar({ userScrollActive = 0 }: Props) {
   const navItems = [
     {
       title: "Pesquisar",
@@ -24,8 +28,19 @@ function Navbar() {
     },
   ];
 
+  const renderBG = (n: number) => {
+    return `rgba(0,0,0,${n / 10})`;
+  };
+
   return (
-    <View style={styles.nav}>
+    <View
+      style={[
+        styles.nav,
+        {
+          backgroundColor: renderBG(userScrollActive / 10),
+        },
+      ]}
+    >
       <View style={[commonStyles.flexRow, { gap: 20 }]}>
         <Link href={"/"}>
           <Image
@@ -58,6 +73,11 @@ export default Navbar;
 
 const styles = StyleSheet.create({
   nav: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 50,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -65,7 +85,6 @@ const styles = StyleSheet.create({
     gap: 16,
     paddingLeft: 36,
     paddingRight: 36,
-    backgroundColor: "#000",
     height: 60,
   },
   label: {

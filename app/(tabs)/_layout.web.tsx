@@ -1,12 +1,11 @@
 import { Stack } from "expo-router";
 import React from "react";
 import Navbar from "@/components/navbar/Navbar";
-import { View } from "react-native";
 
 export default function TabLayout() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <Stack
         screenOptions={{
           headerShown: false,

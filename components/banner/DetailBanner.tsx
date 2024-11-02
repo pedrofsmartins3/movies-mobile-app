@@ -16,8 +16,7 @@ type Props = {
 };
 
 function DetailBanner({ title = "", image = "", isLoading = true }: Props) {
-  const loading = isLoading && (!title || !image);
-
+  const loading = isLoading || !title || !image;
   const isWEB = Platform.OS === "web";
   return (
     <View style={[isWEB ? styles.containerWeb : styles.container]}>

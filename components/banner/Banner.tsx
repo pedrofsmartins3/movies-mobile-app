@@ -69,12 +69,6 @@ function Banner({ fetchURL = "", isSeries = false }: Props) {
             style={styles.backgroundImage}
             imageStyle={{ resizeMode: "cover" }}
           >
-            <View style={styles.topShadow}>
-              <LinearGradient
-                colors={["rgba(0, 0, 0, 1)", "rgba(0, 0, 0, 0)"]}
-                style={styles.gradient}
-              />
-            </View>
             <View style={styles.leftShadow}>
               <LinearGradient
                 colors={["rgba(0, 0, 0, 0.1)", "rgba(0, 0, 0, 1)"]}

@@ -1,6 +1,7 @@
-import React from "react";
+import { MotiPressable } from "moti/interactions";
+import React, { useMemo } from "react";
 import { Platform } from "react-native";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 type Props = {
   title: string;
@@ -44,8 +45,22 @@ export default function Button({
   });
 
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <MotiPressable
+      style={styles.button}
+      onPress={onPress}
+      animate={useMemo(
+        () =>
+          ({ hovered, pressed }) => {
+            "worklet";
+
+            return {
+              opacity: hovered || pressed ? 0.5 : 1,
+            };
+          },
+        []
+      )}
+    >
       <Text style={styles.buttonText}>{title}</Text>
-    </TouchableOpacity>
+    </MotiPressable>
   );
 }
