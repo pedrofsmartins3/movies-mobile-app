@@ -2,35 +2,50 @@
   "expo": {
     "name": "movies-mobile-app",
     "slug": "movies-mobile-app",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logo_white.svg",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/logo_white.svg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.movies"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logo_white.svg",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [],
+      "package": "com.movies"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/logo_white.svg"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "react-native-video",
+      "expo-video"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "37f7adfd-fcdf-402e-8ad1-d6c345e3b6bb"
+      }
     }
   }
 }
