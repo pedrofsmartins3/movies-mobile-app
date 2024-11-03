@@ -1,14 +1,20 @@
 import { render } from "@testing-library/react-native";
-import Logo from "../logo/Logo";
+import Navbar from "../navbar/Navbar";
 
 jest.mock("moti", () => ({ Skeleton: () => "Skeleton" }));
 jest.mock("moti", () => ({ MotiPressable: () => "MotiPressable" }));
 jest.mock("expo-linear-gradient", () => ({
   LinearGradient: () => "LinearGradient",
 }));
+jest.mock("expo-router", () => ({
+  useNavigation: () => "useNavigation",
+}));
+jest.mock("expo-router", () => ({
+  usePathname: () => "usePathname",
+}));
 
 it(`renders correctly`, () => {
-  const component = render(<Logo />);
+  const component = render(<Navbar userScrollActive={0} />);
   component.debug();
   expect(1).toBe(1);
 });
