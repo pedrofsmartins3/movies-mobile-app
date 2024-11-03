@@ -1,3 +1,4 @@
+import useDimensions from "@/hook/useDimensions";
 import { commonStyles } from "@/styles/styles";
 import { Movie } from "@/types/movieTypes";
 import { Skeleton } from "moti/skeleton";
@@ -12,6 +13,8 @@ type Props = {
 
 const MovieDetails = ({ movie, isLoading = true, isSerie = false }: Props) => {
   const isWEB = Platform.OS === "web";
+  const { dimensions } = useDimensions();
+  const isMobile = dimensions.window.width < 480;
 
   //MOVIE
   const movieDate = movie?.release_date || ""; //movie
@@ -48,7 +51,9 @@ const MovieDetails = ({ movie, isLoading = true, isSerie = false }: Props) => {
 
   return (
     <View style={styles.content}>
-      <Text style={[styles.text, isWEB && styles.textWeb]}>{description}</Text>
+      <Text style={[styles.text, isWEB && !isMobile && styles.textWeb]}>
+        {description}
+      </Text>
       <View style={commonStyles.flexRow}>
         <Text style={[styles.text, { textAlign: "left" }]}>
           ⭐ {imdb.toFixed(2)}
@@ -98,6 +103,8 @@ const styles = StyleSheet.create({
     gap: 6,
     paddingHorizontal: 6,
     paddingVertical: 12,
+    maxWidth: 1600,
+    marginHorizontal: "auto",
   },
   title: {
     position: "absolute",

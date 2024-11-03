@@ -3,7 +3,7 @@ import { MotiPressable } from "moti/interactions";
 import React, { useMemo } from "react";
 import { StyleSheet, Text } from "react-native";
 
-type AntDesignIconNames = "" | "home" | "search1" | "download" | "user";
+export type AntDesignIconNames = "" | "home" | "search1" | "download" | "user";
 
 type Props = {
   title: string;
@@ -11,28 +11,29 @@ type Props = {
   icon: AntDesignIconNames;
 };
 
-export default function Button({
+export default function NavButton({
   title = "",
   onPress = () => {},
   icon = "home",
 }: Props) {
   const styles = StyleSheet.create({
     button: {
-      backgroundColor: "rgba(255,255,255,1)",
-      paddingVertical: 10,
-      paddingHorizontal: 24,
+      backgroundColor: "rgba(0,0,0,0)",
+      paddingVertical: 6,
+      paddingHorizontal: 12,
       borderRadius: 8,
       alignItems: "center",
-      borderColor: "#4e4c49",
+      borderColor: "#fff",
       borderWidth: 1,
       width: "auto",
       display: "flex",
       justifyContent: "center",
       flexDirection: "row",
       gap: 6,
+      minWidth: 180,
     },
     buttonText: {
-      color: "#000",
+      color: "#fff",
       fontSize: 16,
       fontWeight: 700,
     },
@@ -46,7 +47,6 @@ export default function Button({
         () =>
           ({ hovered, pressed }) => {
             "worklet";
-
             return {
               opacity: hovered || pressed ? 0.8 : 1,
               scale: hovered ? 1.05 : 1,
@@ -55,8 +55,8 @@ export default function Button({
         []
       )}
     >
+      {icon && <AntDesign name={icon} size={16} color="white" />}
       <Text style={styles.buttonText}>{title}</Text>
-      {icon && <AntDesign name={icon} size={20} color="black" />}
     </MotiPressable>
   );
 }

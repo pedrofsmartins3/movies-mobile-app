@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import Button from "../button/Button";
 import { Platform } from "react-native";
+import useDimensions from "@/hook/useDimensions";
 
 type Props = {
   onChangeText: (a: string) => void;
@@ -15,14 +16,16 @@ function SearchInput({
   handleSearch = () => {},
 }: Props) {
   const isWEB = Platform.OS === "web";
+  const { dimensions } = useDimensions();
+  const isMobile = dimensions.window.width < 480;
 
   return (
     <View
       style={{
-        width: isWEB ? 450 : "100%",
+        width: isMobile ? "100%" : isWEB ? 450 : "90%",
         display: "flex",
-        flexDirection: "row",
-        gap: 4,
+        flexDirection: isMobile ? "column" : "row",
+        gap: 6,
         padding: 10,
       }}
     >
@@ -32,12 +35,7 @@ function SearchInput({
         value={text}
         placeholder="Pesquise pelo nome"
       />
-      <Button
-        title="Pesquisar"
-        variant="small"
-        color="white"
-        onPress={handleSearch}
-      />
+      <Button title="Pesquisar" icon="search1" onPress={handleSearch} />
     </View>
   );
 }
@@ -46,13 +44,13 @@ export default SearchInput;
 
 const styles = StyleSheet.create({
   input: {
-    padding: 10,
     borderWidth: 1,
     borderColor: "#fff",
-    borderRadius: 12,
     color: "#fff",
     flex: 1,
     fontSize: 16,
-    height: 50,
+    paddingVertical: 10,
+    paddingHorizontal: 24,
+    borderRadius: 8,
   },
 });

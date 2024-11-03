@@ -1,8 +1,9 @@
 import { Movie } from "@/types/movieTypes";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { Fragment } from "react";
 import { Image, Platform, ScrollView, TouchableOpacity } from "react-native";
 import { StyleSheet, View } from "react-native";
+import Poster from "../poster/Poster";
 
 type Props = {
   movies: Movie[];
@@ -23,26 +24,9 @@ export default function SearchRow({ movies = [], isSeries = false }: Props) {
         showsHorizontalScrollIndicator={false}
       >
         {movies.map((movie, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.posterContainer}
-            onPress={() => {
-              router.push({
-                pathname: "/detail",
-                params: {
-                  id: movie?.id,
-                  type: isSeries ? "serie" : "movie",
-                },
-              });
-            }}
-          >
-            <Image
-              source={{
-                uri: `https://image.tmdb.org/t/p/original/${movie?.poster_path ? movie.poster_path : movie.backdrop_path}`,
-              }}
-              style={styles.image}
-            />
-          </TouchableOpacity>
+          <Fragment key={index}>
+            <Poster movie={movie} isSeries={isSeries} />
+          </Fragment>
         ))}
       </ScrollView>
     </View>

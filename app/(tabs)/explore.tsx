@@ -1,19 +1,12 @@
-import { getData, requests, searchContent } from "@/api/api";
-import Logo from "@/components/logo/Logo";
+import { genreSearch, searchContent } from "@/api/api";
+import Button from "@/components/button/Button";
 import SearchRow from "@/components/row/SearchRow";
-import SearchInput from "@/components/search/SearchInput";
+import SearchInput from "@/components/input/SearchInput";
 import { Genre } from "@/types/genreTypes";
 import { Skeleton } from "moti/skeleton";
-import { Fragment, useEffect, useState } from "react";
-import {
-  StyleSheet,
-  SafeAreaView,
-  Text,
-  Platform,
-  ScrollView,
-  View,
-  TouchableOpacity,
-} from "react-native";
+import { useEffect, useState } from "react";
+import { StyleSheet, Text, Platform, ScrollView, View } from "react-native";
+import ScreenContainer from "@/components/screenContainer/ScreenContainer";
 
 const genres = [
   { label: "Ação", value: "action" },
@@ -36,6 +29,7 @@ export default function TabTwoScreen() {
   const isWEB = Platform.OS === "web";
 
   const handleInputSearch = async () => {
+    if (text.length === 0) return;
     setLoading(true);
     setIsSearching(true);
     try {
@@ -54,14 +48,8 @@ export default function TabTwoScreen() {
     setIsSearching(true);
     if (text) onChangeText("");
     try {
-      const [seriesResponse, moviesResponse] = await Promise.all([
-        getData(requests[`${genre}Series`]),
-        getData(requests[`${genre}Movies`]),
-      ]);
-      return setData({
-        series: seriesResponse,
-        movies: moviesResponse,
-      });
+      const result = await genreSearch(genre);
+      setData(result);
     } catch (error) {
       setError("Sem conteúdo encontrado.");
       return { series: [], movies: [] };
@@ -118,63 +106,36 @@ export default function TabTwoScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {!isWEB && <Logo />}
+    <ScreenContainer>
+      <View style={{ maxWidth: 1800, width: "90%", marginHorizontal: "auto" }}>
         <SearchInput
           text={text}
           onChangeText={onChangeText}
           handleSearch={handleInputSearch}
         />
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          style={[styles.genresContainer, { paddingLeft: isWEB ? 10 : 0 }]}
-        >
-          {genres.map(({ label, value }, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.genreButton}
-              onPress={() => setGenre(value as Genre)}
-            >
-              <Text
-                style={{
-                  color: "#fff",
-                  textAlign: "center",
-                  fontWeight: 700,
-                }}
-              >
-                {label}
-              </Text>
-            </TouchableOpacity>
-          ))}
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <View
+            style={[styles.genresContainer, { paddingLeft: isWEB ? 10 : 0 }]}
+          >
+            {genres.map(({ label, value }, index) => (
+              <Button
+                key={index}
+                title={label}
+                onPress={() => setGenre(value as Genre)}
+                icon=""
+              />
+            ))}
+          </View>
         </ScrollView>
-        <View style={{ paddingTop: 10, paddingLeft: isWEB ? 10 : 0 }}>
-          {renderAnswer()}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+      <View style={{ paddingTop: 10, paddingLeft: isWEB ? 10 : 0 }}>
+        {renderAnswer()}
+      </View>
+    </ScreenContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: "100%",
-    backgroundColor: "#000",
-    padding: 10,
-  },
-  filtersWeb: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    paddingLeft: 10,
-  },
-  textContainer: {
-    flex: 1,
-    width: "100%",
-    display: "flex",
-    paddingLeft: 10,
-  },
   title: {
     color: "#fff",
     fontSize: 32,
@@ -191,17 +152,8 @@ const styles = StyleSheet.create({
   },
   genresContainer: {
     paddingVertical: 10,
-  },
-  genreButton: {
-    borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 12,
-    backgroundColor: "gray",
-    marginRight: 10,
-    width: 100,
-    height: 50,
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: "row",
+    gap: 6,
   },
 });

@@ -2,14 +2,18 @@ import { useVideoPlayer, VideoView } from "expo-video";
 import { useEffect, useRef, useState } from "react";
 import { Platform, StyleSheet, View } from "react-native";
 import Button from "../button/Button";
+import { Skeleton } from "moti/skeleton";
 
-type Props = { isSerie: boolean };
+type Props = { isSerie: boolean; loading: boolean };
 
-export default function VideoScreen({ isSerie = false }: Props) {
+export default function VideoScreen({
+  isSerie = false,
+  loading = true,
+}: Props) {
   const isWEB = Platform.OS === "web";
   const ref = useRef<VideoView>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [isVideoVisible, setVideoVisible] = useState<boolean>(false); // State to control video visibility
+  const [isVideoVisible, setVideoVisible] = useState<boolean>(false);
   const player = useVideoPlayer(
     require("../../assets/videos/big_buck_bunny.mp4"),
     (player) => {
@@ -43,25 +47,30 @@ export default function VideoScreen({ isSerie = false }: Props) {
 
   return (
     <View style={styles.contentContainer}>
-      {isVideoVisible && (
-        <VideoView
-          ref={ref}
-          style={[isWEB ? styles.WEBvideo : styles.video]}
-          player={player}
-          allowsFullscreen
-          allowsPictureInPicture
-        />
+      {loading ? (
+        <Skeleton width={"100%"} height={50} />
+      ) : (
+        <>
+          {isVideoVisible && (
+            <VideoView
+              ref={ref}
+              style={[isWEB ? styles.WEBvideo : styles.video]}
+              player={player}
+              allowsFullscreen
+              allowsPictureInPicture
+            />
+          )}
+          <View style={styles.controlsContainer}>
+            <Button
+              title={
+                isPlaying ? "Pausa" : isSerie ? "Ver 1º episódio" : "Ver filme"
+              }
+              icon=""
+              onPress={handleButtonPress}
+            />
+          </View>
+        </>
       )}
-      <View style={styles.controlsContainer}>
-        <Button
-          title={
-            isPlaying ? "Pausa" : isSerie ? "Ver 1º episódio" : "Ver filme"
-          }
-          variant="fullWitdh"
-          color="white"
-          onPress={handleButtonPress}
-        />
-      </View>
     </View>
   );
 }

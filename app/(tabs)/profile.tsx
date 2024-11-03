@@ -1,39 +1,22 @@
-import Logo from "@/components/logo/Logo";
 import React from "react";
-import {
-  Platform,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import ScreenContainer from "@/components/screenContainer/ScreenContainer";
 
 type Props = {};
 
 export default function profile({}: Props) {
-  const isWEB = Platform.OS === "web";
-
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {!isWEB && <Logo />}
-      </ScrollView>
+    <ScreenContainer>
       <View style={styles.textContainer}>
         <Text style={styles.text}>
           Não tem nenhum filme nem série na sua coleção.
         </Text>
       </View>
-    </SafeAreaView>
+    </ScreenContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: "100%",
-    backgroundColor: "#000",
-    padding: 10,
-  },
   textContainer: {
     flex: 1,
     width: "100%",

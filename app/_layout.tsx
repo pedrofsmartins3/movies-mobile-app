@@ -29,7 +29,7 @@ export default function RootLayout() {
         name="detail"
         options={{ headerShown: false, presentation: "modal" }}
       />
-      <Stack.Screen name="+not-found" />
+      <Stack.Screen name="+not-found" options={{ headerShown: false }} />
     </Stack>
   );
 }

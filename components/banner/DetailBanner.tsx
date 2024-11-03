@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  ImageBackground,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import { Skeleton } from "moti/skeleton";
-import { LinearGradient } from "expo-linear-gradient";
+import useDimensions from "@/hook/useDimensions";
+import BannerContainer from "./BannerContainer";
 
 type Props = {
   title: string;
@@ -16,6 +11,8 @@ type Props = {
 };
 
 function DetailBanner({ title = "", image = "", isLoading = true }: Props) {
+  const { dimensions } = useDimensions();
+  const isMobile = dimensions.window.width < 480;
   const loading = isLoading || !title || !image;
   const isWEB = Platform.OS === "web";
   return (
@@ -24,31 +21,17 @@ function DetailBanner({ title = "", image = "", isLoading = true }: Props) {
         <Skeleton width={"100%"} height={isWEB ? 600 : 300} />
       ) : (
         <>
-          <ImageBackground
-            source={{
-              uri: `https://image.tmdb.org/t/p/original/${image}`,
-            }}
-            style={styles.backgroundImage}
-            imageStyle={{ resizeMode: "cover" }}
-          >
-            <View style={styles.topShadow}>
-              <LinearGradient
-                colors={["rgba(0, 0, 0, 1)", "rgba(0, 0, 0, 0)"]}
-                style={styles.gradient}
-              />
-            </View>
-            <View style={styles.leftShadow}>
-              <LinearGradient
-                colors={["rgba(0, 0, 0, 0.1)", "rgba(0, 0, 0, 1)"]}
-                style={styles.gradient}
-              />
-            </View>
-            <View style={[isWEB ? styles.contentWeb : styles.content]}>
-              <Text style={[styles.title, isWEB && styles.titleWeb]}>
+          <BannerContainer image={image || ""}>
+            <View
+              style={[isWEB && !isMobile ? styles.contentWeb : styles.content]}
+            >
+              <Text
+                style={[styles.title, isWEB && !isMobile && styles.titleWeb]}
+              >
                 {title}
               </Text>
             </View>
-          </ImageBackground>
+          </BannerContainer>
         </>
       )}
     </View>
@@ -66,34 +49,9 @@ const styles = StyleSheet.create({
   },
   containerWeb: {
     marginVertical: 0,
-    height: 450,
+    height: 500,
     width: "100%",
     position: "relative",
-  },
-  backgroundImage: {
-    height: "100%",
-    width: "100%",
-  },
-  topShadow: {
-    position: "absolute",
-    left: 0,
-    top: -10,
-    right: 0,
-    height: "40%",
-    zIndex: 10,
-  },
-  leftShadow: {
-    position: "absolute",
-    left: 0,
-    top: 0,
-    bottom: 0,
-    width: "100%",
-    zIndex: 10,
-  },
-  gradient: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   content: {
     position: "absolute",
@@ -108,7 +66,7 @@ const styles = StyleSheet.create({
   contentWeb: {
     position: "absolute",
     bottom: 50,
-    left: 40,
+    left: 100,
     right: 20,
     zIndex: 30,
     maxWidth: "90%",

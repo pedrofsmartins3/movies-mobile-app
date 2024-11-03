@@ -2,7 +2,7 @@ import { Movie } from "@/types/movieTypes";
 import { useRouter } from "expo-router";
 import { MotiPressable } from "moti/interactions";
 import React, { useMemo } from "react";
-import { Image, StyleSheet } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 
 type Props = { movie: Movie; isSeries: boolean };
@@ -49,7 +49,9 @@ export default function Poster({ movie, isSeries }: Props) {
       >
         <Image
           source={{
-            uri: `https://image.tmdb.org/t/p/original/${movie?.poster_path ? movie.poster_path : movie.backdrop_path}`,
+            uri: `https://image.tmdb.org/t/p/original/${
+              movie?.poster_path ? movie.poster_path : movie.backdrop_path
+            }`,
           }}
           style={styles.image}
         />

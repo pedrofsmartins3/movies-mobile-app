@@ -76,7 +76,22 @@ export const searchContent = async (query) => {
       movies,
     };
   } catch (error) {
-    console.error("Error fetching the content data:", error);
     return { series: [], movies: [] };
+  }
+};
+
+export const genreSearch = async (genre) => {
+  try {
+    const [seriesResponse, moviesResponse] = await Promise.all([
+      getData(requests[`${genre}Series`]),
+      getData(requests[`${genre}Movies`]),
+    ]);
+    return {
+      series: seriesResponse,
+      movies: moviesResponse,
+    };
+  } catch (error) {
+    return { series: [], movies: [] };
+  } finally {
   }
 };

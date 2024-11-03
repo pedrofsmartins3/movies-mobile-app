@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getData } from "../../api/api";
-import {
-  ImageBackground,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import { Skeleton } from "moti/skeleton";
 import Button from "../button/Button";
 import { useRouter } from "expo-router";
-import { LinearGradient } from "expo-linear-gradient";
+import useDimensions from "@/hook/useDimensions";
+import BannerContainer from "./BannerContainer";
 
 type Props = {
   fetchURL: string;
@@ -18,6 +13,8 @@ type Props = {
 };
 
 function Banner({ fetchURL = "", isSeries = false }: Props) {
+  const { dimensions } = useDimensions();
+  const isMobile = dimensions.window.width < 480;
   const [movie, setMovie] = useState({
     id: 0,
     backdrop_path: "",
@@ -62,24 +59,14 @@ function Banner({ fetchURL = "", isSeries = false }: Props) {
         <Skeleton width={"100%"} height={isWEB ? 450 : 300} />
       ) : (
         <>
-          <ImageBackground
-            source={{
-              uri: `https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`,
-            }}
-            style={styles.backgroundImage}
-            imageStyle={{ resizeMode: "cover" }}
-          >
-            <View style={styles.leftShadow}>
-              <LinearGradient
-                colors={["rgba(0, 0, 0, 0.1)", "rgba(0, 0, 0, 1)"]}
-                style={styles.gradient}
-              />
-            </View>
+          <BannerContainer image={movie.backdrop_path || ""}>
             <View style={[isWEB ? styles.contentWeb : styles.content]}>
-              <Text style={[styles.title, isWEB && styles.titleWeb]}>
+              <Text
+                style={[styles.title, isWEB && !isMobile && styles.titleWeb]}
+              >
                 {movie?.title || movie?.name || movie?.original_name}
               </Text>
-              <Text style={[styles.text, isWEB && styles.textWeb]}>
+              <Text style={[styles.text, isWEB && !isMobile && styles.textWeb]}>
                 {truncate(movie?.overview, 100)}
               </Text>
               <View style={styles.infoContainer}>
@@ -110,8 +97,7 @@ function Banner({ fetchURL = "", isSeries = false }: Props) {
                 {!loading && (
                   <Button
                     title="Ver"
-                    variant="small"
-                    color="white"
+                    icon=""
                     onPress={() => {
                       router.push({
                         pathname: "/detail",
@@ -125,7 +111,7 @@ function Banner({ fetchURL = "", isSeries = false }: Props) {
                 )}
               </View>
             </View>
-          </ImageBackground>
+          </BannerContainer>
         </>
       )}
     </View>
@@ -152,31 +138,6 @@ const styles = StyleSheet.create({
     height: 80,
     backgroundColor: "gray",
     margin: 30,
-  },
-  backgroundImage: {
-    height: "100%",
-    width: "100%",
-  },
-  topShadow: {
-    position: "absolute",
-    left: 0,
-    top: 0,
-    right: 0,
-    height: "40%",
-    zIndex: 10,
-  },
-  leftShadow: {
-    position: "absolute",
-    left: 0,
-    top: 0,
-    bottom: 0,
-    width: "100%",
-    zIndex: 10,
-  },
-  gradient: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   content: {
     position: "absolute",

@@ -1,15 +1,14 @@
 import { getMovie, getSerie } from "@/api/api";
 import DetailBanner from "@/components/banner/DetailBanner";
 import Button from "@/components/button/Button";
-import DetailHeader from "@/components/header/DetailHeader";
+import ScreenContainer from "@/components/screenContainer/ScreenContainer";
 import MovieDetails from "@/components/moviedetails/MovieDetails";
 import VideoScreen from "@/components/videoplayer/VideoScreen";
 import { Movie } from "@/types/movieTypes";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { View } from "moti";
-import { Skeleton } from "moti/skeleton";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 type Props = {};
 
@@ -47,68 +46,40 @@ export default function detail({}: Props) {
   }, [id, type]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <DetailHeader />
-        {error ? (
-          <View
-            style={{
-              padding: 20,
-              display: "flex",
-              alignItems: "center",
-              gap: 16,
-            }}
-          >
-            <Text style={styles.text}>{error}</Text>
-            <Button
-              title="Voltar"
-              variant="small"
-              color="black"
-              onPress={() => navigation.goBack()}
-            />
-          </View>
-        ) : (
-          <>
-            <DetailBanner
-              title={movie?.title || movie?.name || movie?.original_name || ""}
-              image={movie?.backdrop_path || movie?.poster_path || ""}
-              isLoading={loading || !movie}
-            />
-
-            <View style={{ paddingHorizontal: 6, paddingTop: 8 }}>
-              {loading || !movie ? (
-                <Skeleton width={"100%"} height={50} />
-              ) : (
-                <VideoScreen isSerie={isSerie} />
-              )}
-            </View>
-            <MovieDetails
-              movie={movie}
-              isLoading={loading || !movie}
-              isSerie={isSerie}
-            />
-          </>
-        )}
-      </ScrollView>
-    </SafeAreaView>
+    <ScreenContainer>
+      {error ? (
+        <View
+          style={{
+            padding: 20,
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+          }}
+        >
+          <Text style={styles.errorText}>{error}</Text>
+          <Button icon="" title="Voltar" onPress={() => navigation.goBack()} />
+        </View>
+      ) : (
+        <>
+          <DetailBanner
+            title={movie?.title || movie?.name || movie?.original_name || ""}
+            image={movie?.backdrop_path || movie?.poster_path || ""}
+            isLoading={loading || !movie}
+          />
+          <VideoScreen isSerie={isSerie} loading={loading || !movie} />
+          <MovieDetails
+            movie={movie}
+            isLoading={loading || !movie}
+            isSerie={isSerie}
+          />
+        </>
+      )}
+    </ScreenContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: "100%",
-    backgroundColor: "#000",
-    padding: 10,
-  },
-  videoContainer: {
-    width: "100%",
-    height: 300,
-  },
-  video: {
-    width: "100%",
-    height: "100%",
-  },
-  text: {
+  errorText: {
     color: "#f00",
     textAlign: "center",
     fontWeight: 700,
