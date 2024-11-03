@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import Logo from "../logo/Logo";
 type Props = { initalPageBtn: any; items: any };
 
 export default function Sidebar({ initalPageBtn, items }: Props) {
@@ -45,10 +46,7 @@ export default function Sidebar({ initalPageBtn, items }: Props) {
             ]}
           >
             <Link href={"/"}>
-              <Image
-                source={require("../../assets/images/movies_white.png")}
-                style={{ width: 80, height: 80 }}
-              />
+              <Logo size="" />
             </Link>
             <AntDesign
               name="closecircle"

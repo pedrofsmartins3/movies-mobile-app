@@ -10,7 +10,6 @@ import {
   ScrollView,
   StyleSheet,
   Platform,
-  TouchableOpacity,
 } from "react-native";
 import Poster from "../poster/Poster";
 
@@ -89,9 +88,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     fontWeight: "800",
-    textShadowColor: "rgba(100, 100, 100, 0.5)",
-    textShadowOffset: { width: 0, height: 10 },
-    textShadowRadius: 20,
     color: "#fff",
   },
   errorText: {

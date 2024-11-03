@@ -65,7 +65,6 @@ export default function VideoScreen({
               title={
                 isPlaying ? "Pausa" : isSerie ? "Ver 1º episódio" : "Ver filme"
               }
-              icon=""
               onPress={handleButtonPress}
             />
           </View>

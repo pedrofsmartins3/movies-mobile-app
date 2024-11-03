@@ -97,7 +97,6 @@ function Banner({ fetchURL = "", isSeries = false }: Props) {
                 {!loading && (
                   <Button
                     title="Ver"
-                    icon=""
                     onPress={() => {
                       router.push({
                         pathname: "/detail",

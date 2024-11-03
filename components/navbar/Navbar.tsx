@@ -1,7 +1,8 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation, usePathname } from "expo-router";
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import Logo from "../logo/Logo";
 
 type Props = {
   userScrollActive: number;
@@ -21,10 +22,7 @@ function Navbar({ userScrollActive = 0 }: Props) {
           onPress={() => navigation.goBack()}
         />
       )}
-      <Image
-        source={require("../../assets/images/movies_white.png")}
-        style={{ width: 80, height: 80 }}
-      />
+      <Logo size="" />
     </View>
   );
 }

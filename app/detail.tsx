@@ -56,8 +56,9 @@ export default function detail({}: Props) {
             gap: 16,
           }}
         >
+          {/* Mensagem de erro */}
           <Text style={styles.errorText}>{error}</Text>
-          <Button icon="" title="Voltar" onPress={() => navigation.goBack()} />
+          <Button title="Voltar" onPress={() => navigation.goBack()} />
         </View>
       ) : (
         <>

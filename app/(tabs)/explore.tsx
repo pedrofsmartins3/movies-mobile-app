@@ -122,7 +122,6 @@ export default function TabTwoScreen() {
                 key={index}
                 title={label}
                 onPress={() => setGenre(value as Genre)}
-                icon=""
               />
             ))}
           </View>

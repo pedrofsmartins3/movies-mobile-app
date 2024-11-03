@@ -35,7 +35,7 @@ function SearchInput({
         value={text}
         placeholder="Pesquise pelo nome"
       />
-      <Button title="Pesquisar" icon="search1" onPress={handleSearch} />
+      <Button title="Pesquisar" onPress={handleSearch} />
     </View>
   );
 }

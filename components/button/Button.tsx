@@ -1,43 +1,13 @@
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { MotiPressable } from "moti/interactions";
 import React, { useMemo } from "react";
 import { StyleSheet, Text } from "react-native";
 
-type AntDesignIconNames = "" | "home" | "search1" | "download" | "user";
-
 type Props = {
   title: string;
   onPress: () => void;
-  icon: AntDesignIconNames;
 };
 
-export default function Button({
-  title = "",
-  onPress = () => {},
-  icon = "home",
-}: Props) {
-  const styles = StyleSheet.create({
-    button: {
-      backgroundColor: "rgba(255,255,255,1)",
-      paddingVertical: 10,
-      paddingHorizontal: 24,
-      borderRadius: 8,
-      alignItems: "center",
-      borderColor: "#4e4c49",
-      borderWidth: 1,
-      width: "auto",
-      display: "flex",
-      justifyContent: "center",
-      flexDirection: "row",
-      gap: 6,
-    },
-    buttonText: {
-      color: "#000",
-      fontSize: 16,
-      fontWeight: 700,
-    },
-  });
-
+export default function Button({ title = "", onPress = () => {} }: Props) {
   return (
     <MotiPressable
       style={styles.button}
@@ -56,7 +26,28 @@ export default function Button({
       )}
     >
       <Text style={styles.buttonText}>{title}</Text>
-      {icon && <AntDesign name={icon} size={20} color="black" />}
     </MotiPressable>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: "rgba(255,255,255,1)",
+    paddingVertical: 10,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    alignItems: "center",
+    borderColor: "#4e4c49",
+    borderWidth: 1,
+    width: "auto",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: 6,
+  },
+  buttonText: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: 700,
+  },
+});
