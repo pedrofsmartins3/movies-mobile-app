@@ -6,7 +6,6 @@ import Button from "../button/Button";
 import { useRouter } from "expo-router";
 import useDimensions from "@/hook/useDimensions";
 import BannerContainer from "./BannerContainer";
-import { truncate } from "@/utils/handleText";
 
 type Props = {
   fetchURL: string;
