@@ -6,7 +6,7 @@ import { Skeleton } from "moti/skeleton";
 
 type Props = { isSerie: boolean; loading: boolean };
 
-export default function VideoScreen({
+export default function VideoPlayer({
   isSerie = false,
   loading = true,
 }: Props) {
@@ -60,7 +60,7 @@ export default function VideoScreen({
               allowsPictureInPicture
             />
           )}
-          <View style={styles.controlsContainer}>
+          <View style={styles.buttonContainer}>
             <Button
               title={
                 isPlaying ? "Pausa" : isSerie ? "Ver 1º episódio" : "Ver filme"
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     width: 700,
     height: 550,
   },
-  controlsContainer: {
+  buttonContainer: {
     padding: 10,
   },
 });

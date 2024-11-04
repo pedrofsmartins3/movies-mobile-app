@@ -1,7 +1,7 @@
 import { requests } from "@/api/api";
 import HomeBanner from "@/components/banner/HomeBanner";
 import HomeRow from "@/components/row/HomeRow";
-import ScreenContainer from "@/components/screencontainer/ScreenContainer";
+import ScreenContainer from "@/components/screenContainer/ScreenContainer";
 
 export default function HomeScreen() {
   return (

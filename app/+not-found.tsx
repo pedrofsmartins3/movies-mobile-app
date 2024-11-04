@@ -1,4 +1,4 @@
-import ScreenContainer from "@/components/screencontainer/ScreenContainer";
+import ScreenContainer from "@/components/screenContainer/ScreenContainer";
 import { Link } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 

@@ -14,6 +14,16 @@ type Props = {
   loading: boolean;
 };
 
+export const RowSkeleton = (
+  <View style={{ display: "flex", flexDirection: "row" }}>
+    {Array.from({ length: 9 }).map((_, index) => (
+      <MotiView key={index} style={{ marginRight: 12 }}>
+        <Skeleton width={200} height={300} />
+      </MotiView>
+    ))}
+  </View>
+);
+
 export default function Row({
   title = "",
   movies = [],
@@ -42,11 +52,7 @@ export default function Row({
             showsHorizontalScrollIndicator={false}
           >
             {loading
-              ? Array.from({ length: 9 }).map((_, index) => (
-                  <MotiView key={index} style={styles.skeleton}>
-                    <Skeleton width={200} height={300} />
-                  </MotiView>
-                ))
+              ? RowSkeleton
               : movies.map((movie, index) => (
                   <Fragment key={index}>
                     <Poster movie={movie} isSeries={isSeries} />
@@ -68,8 +74,5 @@ const styles = StyleSheet.create({
   errorText: {
     color: "#f00",
     fontSize: 16,
-  },
-  skeleton: {
-    marginRight: 12,
   },
 });

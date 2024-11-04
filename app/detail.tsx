@@ -1,14 +1,14 @@
 import { getMovie, getSerie } from "@/api/api";
 import DetailBanner from "@/components/banner/DetailBanner";
 import Button from "@/components/button/Button";
-import ScreenContainer from "@/components/screencontainer/ScreenContainer";
+import ScreenContainer from "@/components/screenContainer/ScreenContainer";
 import MovieDetails from "@/components/moviedetails/MovieDetails";
-import VideoScreen from "@/components/videoplayer/VideoScreen";
 import { Movie } from "@/types/movieTypes";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { View } from "moti";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text } from "react-native";
+import VideoPlayer from "@/components/videoplayer/VideoPlayer";
 
 type Props = {};
 
@@ -72,7 +72,7 @@ export default function detail({}: Props) {
             image={movie?.backdrop_path || movie?.poster_path || ""}
             isLoading={loading || !movie}
           />
-          <VideoScreen isSerie={isSerie} loading={loading || !movie} />
+          <VideoPlayer isSerie={isSerie} loading={loading || !movie} />
           <MovieDetails
             movie={movie}
             isLoading={loading || !movie}

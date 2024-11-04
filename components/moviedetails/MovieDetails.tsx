@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     gap: 6,
     paddingHorizontal: 6,
     paddingVertical: 12,
+    width: "100%",
     maxWidth: 1600,
     marginHorizontal: "auto",
   },
