@@ -1,54 +1,27 @@
-import { getData } from "@/api/api";
 import { Movie } from "@/types/movieTypes";
-import { useRouter } from "expo-router";
-import { Skeleton } from "moti/skeleton";
-import React, { Fragment, useEffect, useState } from "react";
-import {
-  Image,
-  Text,
-  View,
-  ScrollView,
-  StyleSheet,
-  Platform,
-} from "react-native";
+import React, { Fragment } from "react";
+import { Platform, ScrollView, StyleSheet, Text } from "react-native";
+import { View } from "react-native";
 import Poster from "../poster/Poster";
+import { Skeleton } from "moti/skeleton";
+import { MotiView } from "moti";
 
 type Props = {
-  fetchURL: string;
-  isSeries: boolean;
   title: string;
+  movies: Movie[];
+  isSeries: boolean;
+  error: string;
+  loading: boolean;
 };
 
 export default function Row({
-  fetchURL = "",
   title = "",
+  movies = [],
   isSeries = false,
+  error = "",
+  loading = true,
 }: Props) {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
-
   const isWEB = Platform.OS === "web";
-  const router = useRouter();
-
-  const fecthData = async () => {
-    try {
-      setLoading(true);
-      const results = await getData(fetchURL);
-      setMovies(results);
-      if (error) setError("");
-    } catch (error) {
-      setError(
-        `Erro ao carregar ${isSeries ? "series" : "filmes"}. Porfavor, recarregue a página.`
-      );
-    } finally {
-      setLoading(false && !movies);
-    }
-  };
-
-  useEffect(() => {
-    fecthData();
-  }, []);
 
   return (
     <View style={{ paddingLeft: isWEB ? 16 : 0, paddingTop: isWEB ? 6 : 0 }}>
@@ -57,7 +30,7 @@ export default function Row({
       ) : (
         <>
           {loading ? (
-            <Skeleton width={250} height={40} />
+            <Skeleton width={100} height={40} />
           ) : (
             <Text style={styles.title}>{title}</Text>
           )}
@@ -68,15 +41,17 @@ export default function Row({
             }}
             showsHorizontalScrollIndicator={false}
           >
-            {loading ? (
-              <Skeleton width={2000} height={300} />
-            ) : (
-              movies.map((movie, index) => (
-                <Fragment key={index}>
-                  <Poster movie={movie} isSeries={isSeries} />
-                </Fragment>
-              ))
-            )}
+            {loading
+              ? Array.from({ length: 9 }).map((_, index) => (
+                  <MotiView key={index} style={styles.skeleton}>
+                    <Skeleton width={200} height={300} />
+                  </MotiView>
+                ))
+              : movies.map((movie, index) => (
+                  <Fragment key={index}>
+                    <Poster movie={movie} isSeries={isSeries} />
+                  </Fragment>
+                ))}
           </ScrollView>
         </>
       )}
@@ -93,5 +68,8 @@ const styles = StyleSheet.create({
   errorText: {
     color: "#f00",
     fontSize: 16,
+  },
+  skeleton: {
+    marginRight: 12,
   },
 });

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -37,7 +37,7 @@ export default function ScreenContainer({ children }: Props) {
         ref={scrollViewREF}
         onScroll={handleScroll}
       >
-        {children}
+        <View style={{ marginBottom: 20 }}>{children}</View>
       </ScrollView>
     </SafeAreaView>
   );

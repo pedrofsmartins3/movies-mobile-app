@@ -2,11 +2,11 @@ import { Link, useRouter } from "expo-router";
 import React, { Fragment } from "react";
 import { StyleSheet, View } from "react-native";
 import { commonStyles } from "@/styles/styles";
-import NavButton, { AntDesignIconNames } from "../button/NavButton";
 import useDimensions from "@/hook/useDimensions";
 import Sidebar from "./Sidebar";
 import { MotiView } from "moti";
 import Logo from "../logo/Logo";
+import Button, { AntDesignIconNames } from "../button/Button";
 
 type Props = {
   userScrollActive: number;
@@ -45,9 +45,10 @@ function Navbar({ userScrollActive = 0 }: Props) {
   const items = navItems.map(
     ({ title = "", icon = "", onPress = () => {} }, index) => (
       <Fragment key={index}>
-        <NavButton
+        <Button
           title={title}
           icon={icon as AntDesignIconNames}
+          variant="nav"
           onPress={onPress}
         />
       </Fragment>
@@ -55,9 +56,10 @@ function Navbar({ userScrollActive = 0 }: Props) {
   );
 
   const initalPageBtn = (
-    <NavButton
+    <Button
       title="Página inicial"
       icon="home"
+      variant="nav"
       onPress={() =>
         router.push({
           pathname: "/",

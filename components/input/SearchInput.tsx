@@ -8,12 +8,16 @@ type Props = {
   onChangeText: (a: string) => void;
   text: string;
   handleSearch: () => void;
+  placeholder: string;
+  buttonTitle: string;
 };
 
 function SearchInput({
   onChangeText = () => {},
   text = "",
   handleSearch = () => {},
+  placeholder = "Pesquisar...",
+  buttonTitle = "Pesquisar",
 }: Props) {
   const isWEB = Platform.OS === "web";
   const { dimensions } = useDimensions();
@@ -26,16 +30,16 @@ function SearchInput({
         display: "flex",
         flexDirection: isMobile ? "column" : "row",
         gap: 6,
-        padding: 10,
+        paddingVertical: 10,
       }}
     >
       <TextInput
-        style={styles.input}
+        style={[styles.input, { paddingVertical: isWEB ? 10 : 16 }]}
         onChangeText={onChangeText}
         value={text}
-        placeholder="Pesquise pelo nome"
+        placeholder={placeholder}
       />
-      <Button title="Pesquisar" onPress={handleSearch} />
+      <Button title={buttonTitle} variant="" icon="" onPress={handleSearch} />
     </View>
   );
 }
@@ -49,7 +53,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     flex: 1,
     fontSize: 16,
-    paddingVertical: 10,
+
     paddingHorizontal: 24,
     borderRadius: 8,
   },

@@ -1,28 +1,28 @@
-import Banner from "@/components/banner/Banner";
 import { requests } from "@/api/api";
-import Row from "@/components/row/Row";
-import ScreenContainer from "@/components/screenContainer/ScreenContainer";
+import HomeBanner from "@/components/banner/HomeBanner";
+import HomeRow from "@/components/row/HomeRow";
+import ScreenContainer from "@/components/screencontainer/ScreenContainer";
 
 export default function HomeScreen() {
   return (
     <ScreenContainer>
-      <Banner fetchURL={requests.popularMovies} isSeries={false} />
-      <Row
+      <HomeBanner fetchURL={requests.popularMovies} isSeries={false} />
+      <HomeRow
         title="Filmes Populares"
         fetchURL={requests.popularMovies}
         isSeries={false}
       />
-      <Row
+      <HomeRow
         title="Séries Populares"
         fetchURL={requests.popularSeries}
         isSeries={true}
       />
-      <Row
+      <HomeRow
         title="Filmes de Ação"
         fetchURL={requests.actionMovies}
         isSeries={false}
       />
-      <Row
+      <HomeRow
         title="Filmes de Comédia"
         fetchURL={requests.comedyMovies}
         isSeries={false}

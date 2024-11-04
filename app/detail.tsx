@@ -1,7 +1,7 @@
 import { getMovie, getSerie } from "@/api/api";
 import DetailBanner from "@/components/banner/DetailBanner";
 import Button from "@/components/button/Button";
-import ScreenContainer from "@/components/screenContainer/ScreenContainer";
+import ScreenContainer from "@/components/screencontainer/ScreenContainer";
 import MovieDetails from "@/components/moviedetails/MovieDetails";
 import VideoScreen from "@/components/videoplayer/VideoScreen";
 import { Movie } from "@/types/movieTypes";
@@ -58,7 +58,12 @@ export default function detail({}: Props) {
         >
           {/* Mensagem de erro */}
           <Text style={styles.errorText}>{error}</Text>
-          <Button title="Voltar" onPress={() => navigation.goBack()} />
+          <Button
+            title="Voltar"
+            variant=""
+            icon=""
+            onPress={() => navigation.goBack()}
+          />
         </View>
       ) : (
         <>

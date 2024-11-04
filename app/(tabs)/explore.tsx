@@ -1,12 +1,12 @@
 import { genreSearch, searchContent } from "@/api/api";
 import Button from "@/components/button/Button";
-import SearchRow from "@/components/row/SearchRow";
+import Row from "@/components/row/Row";
 import SearchInput from "@/components/input/SearchInput";
 import { Genre } from "@/types/genreTypes";
 import { Skeleton } from "moti/skeleton";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, Platform, ScrollView, View } from "react-native";
-import ScreenContainer from "@/components/screenContainer/ScreenContainer";
+import ScreenContainer from "@/components/screencontainer/ScreenContainer";
 
 const genres = [
   { label: "Ação", value: "action" },
@@ -70,57 +70,54 @@ export default function TabTwoScreen() {
         </Text>
       );
     }
-    if (loading) {
-      return (
-        <View style={{ display: "flex", gap: 16 }}>
-          <Skeleton width={300} height={30} />
-          <Skeleton width={"100%"} height={300} />
-          <Skeleton width={300} height={30} />
-          <Skeleton width={"100%"} height={300} />
-        </View>
-      );
-    } else {
-      if (error) {
-        return <Text style={styles.text}>{error}</Text>;
-      }
-      if (data?.movies.length === 0 && data?.series.length === 0) {
-        return <Text style={styles.text}>Nenhuma informação encontrada</Text>;
-      }
-      return (
-        <>
-          {data?.movies.length > 0 && (
-            <>
-              <Text style={styles.title}>Filmes</Text>
-              <SearchRow movies={data?.movies} isSeries={false} />
-            </>
-          )}
-          {data?.series.length > 0 && (
-            <>
-              <Text style={styles.title}>Séries</Text>
-              <SearchRow movies={data?.series} isSeries={true} />
-            </>
-          )}
-        </>
-      );
+    if (error) {
+      return <Text style={styles.text}>{error}</Text>;
     }
+    if (data?.movies.length === 0 && data?.series.length === 0) {
+      return <Text style={styles.text}>Nenhuma informação encontrada</Text>;
+    }
+    return (
+      <>
+        {data?.movies.length > 0 && (
+          <Row
+            title="Filmes"
+            loading={loading}
+            movies={data?.movies}
+            isSeries={false}
+            error=""
+          />
+        )}
+        {data?.series.length > 0 && (
+          <Row
+            title="Séries"
+            loading={loading}
+            movies={data?.series}
+            isSeries={true}
+            error=""
+          />
+        )}
+      </>
+    );
   };
 
   return (
     <ScreenContainer>
       <View style={{ maxWidth: 1800, width: "90%", marginHorizontal: "auto" }}>
         <SearchInput
+          placeholder="Pesquise pelo nome"
+          buttonTitle="Pesquisar"
           text={text}
           onChangeText={onChangeText}
           handleSearch={handleInputSearch}
         />
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <View
-            style={[styles.genresContainer, { paddingLeft: isWEB ? 10 : 0 }]}
-          >
+          <View style={styles.genresContainer}>
             {genres.map(({ label, value }, index) => (
               <Button
                 key={index}
                 title={label}
+                variant=""
+                icon=""
                 onPress={() => setGenre(value as Genre)}
               />
             ))}
