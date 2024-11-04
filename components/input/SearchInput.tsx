@@ -38,6 +38,7 @@ function SearchInput({
         onChangeText={onChangeText}
         value={text}
         placeholder={placeholder}
+        placeholderTextColor="gray"
       />
       <Button title={buttonTitle} variant="" icon="" onPress={handleSearch} />
     </View>
@@ -53,7 +54,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     flex: 1,
     fontSize: 16,
-
     paddingHorizontal: 24,
     borderRadius: 8,
   },

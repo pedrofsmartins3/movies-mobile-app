@@ -86,6 +86,7 @@ const MovieDetails = ({ movie, isLoading = true, isSerie = false }: Props) => {
           genres.map((g: any, index: number) => (
             <Text key={index} style={[styles.text, { textAlign: "left" }]}>
               {g.name || ""}
+              {index + 1 !== genres.length && separator}
             </Text>
           ))}
       </View>
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingVertical: 12,
     width: "100%",
-    maxWidth: 1600,
+    maxWidth: 1400,
     marginHorizontal: "auto",
   },
   title: {
@@ -126,6 +127,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     textAlign: "justify",
+    display: "flex",
+    alignItems: "center",
+    gap: 6,
   },
   textWeb: {
     fontSize: 22,

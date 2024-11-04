@@ -13,6 +13,7 @@ export default function TabLayout() {
     },
     tabBarLabel: {
       fontSize: 12,
+      color: "#fff",
     },
   });
 
@@ -29,10 +30,11 @@ export default function TabLayout() {
           name="index"
           options={{
             title: "Página Inicial",
-            tabBarIcon: ({ color, focused }) => (
+            headerTitleStyle: { color: "#fff" },
+            tabBarIcon: ({ focused }) => (
               <TabBarIcon
                 name={focused ? "home" : "home-outline"}
-                color={color}
+                color="#fff"
               />
             ),
           }}
@@ -41,10 +43,10 @@ export default function TabLayout() {
           name="download"
           options={{
             title: "Downloads",
-            tabBarIcon: ({ color, focused }) => (
+            tabBarIcon: ({ focused }) => (
               <TabBarIcon
                 name={focused ? "download" : "download-outline"}
-                color={color}
+                color="#fff"
               />
             ),
           }}
@@ -53,10 +55,10 @@ export default function TabLayout() {
           name="explore"
           options={{
             title: "Pesquisar",
-            tabBarIcon: ({ color, focused }) => (
+            tabBarIcon: ({ focused }) => (
               <TabBarIcon
                 name={focused ? "search" : "search-outline"}
-                color={color}
+                color="#fff"
               />
             ),
           }}
@@ -65,10 +67,10 @@ export default function TabLayout() {
           name="profile"
           options={{
             title: "A minha coleção",
-            tabBarIcon: ({ color, focused }) => (
+            tabBarIcon: ({ focused }) => (
               <TabBarIcon
                 name={focused ? "person" : "person-outline"}
-                color={color}
+                color="#fff"
               />
             ),
           }}

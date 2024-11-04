@@ -30,9 +30,9 @@ export default function TabTwoScreen() {
 
   const handleInputSearch = async () => {
     if (text.length === 0) return;
-    setLoading(true);
-    setIsSearching(true);
     try {
+      setLoading(true);
+      setIsSearching(true);
       const result = await searchContent(text);
       setData(result);
     } catch (error) {
@@ -44,10 +44,10 @@ export default function TabTwoScreen() {
   };
 
   const handleGenreSearch = async (genre: Genre) => {
-    setLoading(true);
-    setIsSearching(true);
-    if (text) onChangeText("");
     try {
+      setLoading(true);
+      setIsSearching(true);
+      if (text) onChangeText("");
       const result = await genreSearch(genre);
       setData(result);
     } catch (error) {
