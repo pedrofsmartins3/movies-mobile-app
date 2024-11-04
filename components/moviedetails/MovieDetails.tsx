@@ -86,7 +86,6 @@ const MovieDetails = ({ movie, isLoading = true, isSerie = false }: Props) => {
           genres.map((g: any, index: number) => (
             <Text key={index} style={[styles.text, { textAlign: "left" }]}>
               {g.name || ""}
-              {index + 1 !== genres.length && separator}
             </Text>
           ))}
       </View>
