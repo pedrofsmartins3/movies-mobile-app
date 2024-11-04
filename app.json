@@ -9,11 +9,11 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/movies_white.jpg",
+    "icon": "./assets/images/movies_white.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/movies_white.jpg",
+      "image": "./assets/images/movies_white.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,7 +23,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/movies_white.jpg",
+        "foregroundImage": "./assets/images/movies_white.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [],
@@ -32,11 +32,10 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/movies_white.jpg"
+      "favicon": "./assets/images/movies_white.png"
     },
     "plugins": [
       "expo-router",
-      "react-native-video",
       "expo-video"
     ],
     "experiments": {
