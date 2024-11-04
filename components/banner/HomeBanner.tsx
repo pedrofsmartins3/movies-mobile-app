@@ -6,6 +6,7 @@ import Button from "../button/Button";
 import { useRouter } from "expo-router";
 import useDimensions from "@/hook/useDimensions";
 import BannerContainer from "./BannerContainer";
+import { truncate } from "@/utils/handleText";
 
 type Props = {
   fetchURL: string;
@@ -49,10 +50,6 @@ function HomeBanner({ fetchURL = "", isSeries = false }: Props) {
     fecthData();
   }, []);
 
-  function truncate(string: string, n: number) {
-    return string?.length > n ? string.substring(0, n - 1) + "..." : string;
-  }
-
   return (
     <BannerContainer
       image={movie.backdrop_path || ""}
@@ -62,8 +59,11 @@ function HomeBanner({ fetchURL = "", isSeries = false }: Props) {
         <Text style={[styles.title, isWEB && !isMobile && styles.titleWeb]}>
           {movie?.title || movie?.name || movie?.original_name}
         </Text>
-        <Text style={[styles.text, isWEB && !isMobile && styles.textWeb]}>
-          {truncate(movie?.overview, 100)}
+        <Text
+          style={[styles.text, isWEB && !isMobile && styles.textWeb]}
+          numberOfLines={1}
+        >
+          {movie?.overview}
         </Text>
         <View style={styles.infoContainer}>
           <View style={styles.infoItem}>
