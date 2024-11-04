@@ -27,7 +27,7 @@ export default function ScreenContainer({ children }: Props) {
     <SafeAreaView
       style={{
         height: "100%",
-        backgroundColor: "#111111",
+        backgroundColor: "#000",
         paddingTop: noTopPadding ? 0 : isWEB ? 80 : 0,
       }}
     >

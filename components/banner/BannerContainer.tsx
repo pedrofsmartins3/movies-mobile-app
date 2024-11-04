@@ -31,13 +31,13 @@ export default function BannerContainer({
           >
             <View style={styles.topShadow}>
               <LinearGradient
-                colors={["#111111", "rgba(0, 0, 0, 0)"]}
+                colors={["#000", "rgba(0, 0, 0, 0)"]}
                 style={styles.gradient}
               />
             </View>
             <View style={styles.leftShadow}>
               <LinearGradient
-                colors={["rgba(0, 0, 0, 0.1)", "#111111"]}
+                colors={["rgba(0, 0, 0, 0.1)", "#000"]}
                 style={styles.gradient}
               />
             </View>

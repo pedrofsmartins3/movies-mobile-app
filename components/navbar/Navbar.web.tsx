@@ -72,7 +72,7 @@ function Navbar({ userScrollActive = 0 }: Props) {
     <MotiView
       style={styles.nav}
       animate={{
-        backgroundColor: userScrollActive < 1 ? "rgba(0,0,0,0)" : "#222222",
+        backgroundColor: userScrollActive < 1 ? "rgba(0,0,0,0)" : "#111",
       }}
       transition={{
         duration: 100,
